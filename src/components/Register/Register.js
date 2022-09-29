@@ -2,12 +2,30 @@ import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
 import "./Register.scss";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { registerUser } from "../../slices/user";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const onRegister = () => {};
+
+  const navigate = useNavigate();
+
+  const resetState = () => {
+    setName("");
+    setEmail("");
+    setPassword("");
+  };
+
+  const dispatch = useDispatch();
+
+  const onRegister = (user) => {
+    dispatch(registerUser(user));
+    resetState();
+    navigate("/room");
+  };
 
   return (
     <div className="input-field">
@@ -42,7 +60,7 @@ export default function Register() {
       <Button
         className="register-button"
         variant="contained"
-        onClick={onRegister}
+        onClick={() => onRegister({ name, email, password })}
       >
         Register
       </Button>
