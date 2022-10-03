@@ -18,9 +18,10 @@ export default function Login() {
   };
 
   const onLogin = (user) => {
-    dispatch(loginUser(user));
-    resetState();
-    navigate("/room");
+    dispatch(loginUser(user)).then(() => {
+      resetState();
+      navigate("/room");
+    });
   };
 
   return (

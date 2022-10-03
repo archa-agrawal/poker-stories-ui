@@ -5,9 +5,14 @@ import { Link } from "react-router-dom";
 import { getUserProfile, logoutUser } from "../../slices/user";
 import "./Header.scss";
 
-export default function Header({ user }) {
+export default function Header() {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.profile);
   const [mode, setMode] = useState("loggedOut");
+
+  useEffect(() => {
+    dispatch(getUserProfile());
+  }, [dispatch]);
 
   useEffect(() => {
     if (user.email) {
