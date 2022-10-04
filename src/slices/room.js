@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createStory } from "./story";
 const SERVER_URL = `${process.env.REACT_APP_SERVER_URL}/room`;
 
 export const getRoom = createAsyncThunk("get_room", async (id) => {
@@ -17,6 +18,7 @@ const initial = {
     name: "",
     stories: [],
     voterId: "",
+    isRoomOwner: false,
   },
 };
 
@@ -26,6 +28,9 @@ const roomSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getRoom.fulfilled, (state, { payload }) => {
       state.data = payload;
+    });
+    builder.addCase(createStory.fulfilled, (state, { payload }) => {
+      state.data.stories = [...state.data.stories, payload];
     });
   },
 });

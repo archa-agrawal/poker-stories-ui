@@ -1,47 +1,77 @@
 import * as React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { getRoom } from "../../slices/room";
-import { styled } from "@mui/material/styles";
+import Button from "@mui/material/Button";
 import "./Room.scss";
+import StoryModal from "../StoryModal/StoryModal";
+import { createStory } from "../../slices/story";
 
 export default function Room() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const room = useSelector((state) => state.room.data);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const { id } = useParams();
 
   useEffect(() => {
     dispatch(getRoom(id));
-  }, [dispatch, room]);
+  }, [dispatch, id]);
 
   const onStoryClick = (storyId) => {
-    navigate(`story/${storyId}`);
+    navigate(`/story/${storyId}`);
   };
 
-  const storyTable = room.stories.map((story) => {
+  const onAdd = () => {
+    setModalOpen(true);
+  };
+  const onClose = () => {
+    setModalOpen(false);
+  };
+
+  const onAddClick = (story) => {
+    dispatch(createStory(story));
+  };
+  const storyTable = room.stories?.map((story, index) => {
     return (
-      <>
-        <td className="story-info" onClick={() => onStoryClick(story.id)}>
-          {story.title} {"  |  "}
-          {story.final_points}{" "}
-        </td>
-      </>
+      <td
+        className="story-info"
+        key={index}
+        onClick={() => onStoryClick(story.id)}
+      >
+        {story.title} {"  |  "}
+        {story.final_points}{" "}
+      </td>
     );
   });
-
-  const Demo = styled("div")(({ theme }) => ({
-    backgroundColor: theme.palette.background.paper,
-  }));
 
   return (
     <div>
       <h3>{room.name}</h3>
       <div>
-        <table>{storyTable}</table>
+        <table>
+          <tbody>
+            <tr>{storyTable}</tr>
+          </tbody>
+        </table>
       </div>
+      {room.isRoomOwner && (
+        <Button
+          className="add-story-button"
+          variant="contained"
+          onClick={() => onAdd()}
+        >
+          Add story
+        </Button>
+      )}
+      <StoryModal
+        modalOpen={modalOpen}
+        onClose={onClose}
+        onAddClick={onAddClick}
+        roomId={id}
+      />
     </div>
   );
 }
