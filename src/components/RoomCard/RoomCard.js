@@ -3,10 +3,10 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import "./RoomCard.scss";
 
-export default function RoomCard({ title }) {
+export default function RoomCard({ title, onRoomClick, roomId }) {
   return (
     <div className="room-container">
-      <Card sx={{ minWidth: 275 }}>
+      <Card sx={{ minWidth: 275 }} onClick={() => onRoomClick(roomId)}>
         <CardContent>
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
             Room title

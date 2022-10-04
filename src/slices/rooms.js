@@ -12,7 +12,6 @@ export const getOwnerRooms = createAsyncThunk("rooms_all", async () => {
 });
 
 export const createRoom = createAsyncThunk("create-room", async (roomName) => {
-  console.log(roomName);
   const response = await fetch(SERVER_URL, {
     method: "POST",
     body: JSON.stringify(roomName),

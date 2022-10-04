@@ -1,10 +1,12 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { getOwnerRooms } from "../../slices/rooms";
 import RoomCard from "../RoomCard/RoomCard";
 
 export default function Rooms() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = useSelector((state) => state.user.profile);
   const rooms = useSelector((state) => state.rooms.data);
 
@@ -12,15 +14,33 @@ export default function Rooms() {
     dispatch(getOwnerRooms());
   }, [dispatch, user]);
 
+  const onRoomClick = (roomId) => {
+    navigate(`/room/${roomId}`);
+  };
+
   const ownedRooms = rooms.map((room) => {
     if (room.isRoomOwner) {
-      return <RoomCard key={room.id} title={room.name} />;
+      return (
+        <RoomCard
+          key={room.id}
+          title={room.name}
+          onRoomClick={onRoomClick}
+          roomId={room.id}
+        />
+      );
     }
   });
 
   const registeredRooms = rooms.map((room) => {
     if (!room.isRoomOwner) {
-      return <RoomCard key={room.id} title={room.name} />;
+      return (
+        <RoomCard
+          key={room.id}
+          title={room.name}
+          onRoomClick={onRoomClick}
+          roomId={room.id}
+        />
+      );
     }
   });
 
