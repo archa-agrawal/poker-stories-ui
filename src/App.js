@@ -13,14 +13,18 @@ function App() {
     <div className="App">
       <>
         <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/user/register" element={<Register />} />
-          <Route path="/user/login" element={<Login />} />
-          <Route path="/room" element={<Rooms />} />
-          <Route path="/room/:id" element={<Room />} />
-          <Route path="/story/:id" element={<Story />} />
-        </Routes>
+        <div
+          style={{ marginTop: "70px", marginRight: "80px", marginLeft: "80px" }}
+        >
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/user/register" element={<Register />} />
+            <Route path="/user/login" element={<Login />} />
+            <Route path="/rooms" element={<Rooms />} />
+            <Route path="/room/:id" element={<Room />} />
+            <Route path="/story/:id" element={<Story />} />
+          </Routes>
+        </div>
       </>
     </div>
   );

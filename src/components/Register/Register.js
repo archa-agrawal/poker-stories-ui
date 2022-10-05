@@ -1,5 +1,10 @@
-import Input from "@mui/material/Input";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
 import "./Register.scss";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -24,46 +29,57 @@ export default function Register() {
   const onRegister = (user) => {
     dispatch(registerUser(user));
     resetState();
-    navigate("/room");
+    navigate("/rooms");
   };
 
   return (
-    <div className="input-field">
-      <div>
-        {"Enter name"}
-        <Input
-          className="field"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-      </div>
-      <div>
-        {"Enter email"}
-        <Input
-          className="field"
-          placeholder="email@email.com"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
-      <div>
-        {"Enter password"}
-        <Input
-          className="field"
-          placeholder="password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      <Button
-        className="register-button"
-        variant="contained"
-        onClick={() => onRegister({ name, email, password })}
-      >
-        Register
-      </Button>
-    </div>
+    <Box sx={{ width: "600px", margin: "auto", marginTop: "200px" }}>
+      <Card>
+        <CardContent>
+          <Typography variant="h6" component="h2" sx={{ pb: 1 }}>
+            Sign In
+          </Typography>
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <TextField
+              required
+              fullwidth={"true"}
+              sx={{ my: 1 }}
+              label="Name"
+              value={name}
+              placeholder="name"
+              onChange={(e) => setName(e.target.value)}
+            />
+            <TextField
+              required
+              fullwidth={"true"}
+              sx={{ my: 1 }}
+              label="EMail"
+              value={email}
+              placeholder="email@email.com"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <TextField
+              required
+              type={"password"}
+              fullwidth={"true"}
+              sx={{ my: 1 }}
+              label="Password"
+              placeholder="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </Box>
+        </CardContent>
+        <CardActions>
+          <Button
+            className="login-button"
+            variant="contained"
+            onClick={() => onRegister({ name, email, password })}
+          >
+            Register
+          </Button>
+        </CardActions>
+      </Card>
+    </Box>
   );
 }

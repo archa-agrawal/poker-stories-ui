@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getOwnerRooms } from "../../slices/rooms";
 import RoomCard from "../RoomCard/RoomCard";
+import "./Rooms.scss";
 
 export default function Rooms() {
   const dispatch = useDispatch();
@@ -18,7 +19,9 @@ export default function Rooms() {
     navigate(`/room/${roomId}`);
   };
 
-  const ownedRooms = rooms.map((room) => {
+  const cardColors = ["#FCCEB4", "#C0FCB4", "#B4CBFC", "#F9B4FC"];
+
+  const ownedRooms = rooms.map((room, index) => {
     if (room.isRoomOwner) {
       return (
         <RoomCard
@@ -26,12 +29,13 @@ export default function Rooms() {
           title={room.name}
           onRoomClick={onRoomClick}
           roomId={room.id}
+          color={cardColors[index % cardColors.length]}
         />
       );
     }
   });
 
-  const registeredRooms = rooms.map((room) => {
+  const registeredRooms = rooms.map((room, index) => {
     if (!room.isRoomOwner) {
       return (
         <RoomCard
@@ -39,13 +43,14 @@ export default function Rooms() {
           title={room.name}
           onRoomClick={onRoomClick}
           roomId={room.id}
+          color={cardColors[index % cardColors.length]}
         />
       );
     }
   });
 
   return (
-    <>
+    <div className="rooms">
       <div className="owner-rooms">
         <h3>Your rooms</h3>
         {ownedRooms.length ? <div>{ownedRooms}</div> : "No rooms yet"}
@@ -54,6 +59,6 @@ export default function Rooms() {
         <h3>Registered rooms</h3>
         {registeredRooms.length ? <div>{registeredRooms}</div> : "No rooms yet"}
       </div>
-    </>
+    </div>
   );
 }

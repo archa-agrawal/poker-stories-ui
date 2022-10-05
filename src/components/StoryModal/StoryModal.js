@@ -4,16 +4,10 @@ import Modal from "@mui/material/Modal";
 import Input from "@mui/material/Input";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { createRoom } from "../../slices/rooms";
 import "./StoryModal.scss";
 
 export default function RoomModal({ modalOpen, onClose, onAddClick, roomId }) {
   const [storyTitle, setStoryTitle] = useState("");
-  const story = {
-    roomId: roomId,
-    title: storyTitle,
-  };
 
   const onAdd = (story) => {
     onAddClick(story);
