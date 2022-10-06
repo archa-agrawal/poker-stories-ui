@@ -11,19 +11,13 @@ export default function Story() {
   const dispatch = useDispatch();
   const story = useSelector((state) => state.story.data);
   const [modalOpen, setModalOpen] = useState(false);
-  const [hasVoted, setHasVoted] = useState(false);
+  const [voteView, setVoteView] = useState("");
 
   const { id } = useParams();
 
   useEffect(() => {
     dispatch(getStory(id));
   }, [dispatch, id]);
-
-  useEffect(() => {
-    if (story.hasVoted) {
-      setHasVoted(true);
-    }
-  }, [story.hasVoted]);
 
   const points = story.points.map((point) => {
     return (
@@ -36,12 +30,15 @@ export default function Story() {
   const onVote = () => {
     setModalOpen(true);
   };
+  const onFinalVote = () => {
+    setVoteView("finalVote");
+    setModalOpen(true);
+  };
   const onClose = () => {
     setModalOpen(false);
   };
   const onVoteClick = (vote) => {
     dispatch(postVote(vote)).then(() => {
-      setHasVoted(true);
       onClose();
     });
   };
@@ -66,12 +63,12 @@ export default function Story() {
             <Button
               className="vote-button"
               variant="contained"
-              onClick={onVote}
+              onClick={onFinalVote}
             >
               Final Vote
             </Button>
           )}
-          {!hasVoted && (
+          {!story.hasVoted && (
             <Button
               className="vote-button"
               variant="contained"
@@ -90,6 +87,7 @@ export default function Story() {
         title={story.title}
         id={story.id}
         roomId={story.room_id}
+        voteView={voteView}
       />
     </>
   );

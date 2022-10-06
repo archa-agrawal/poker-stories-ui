@@ -19,6 +19,7 @@ export default function VoteModal({
   roomId,
   title,
   id,
+  voteView,
 }) {
   const [value, setValue] = useState(1);
 
@@ -81,24 +82,32 @@ export default function VoteModal({
             </FormControl>
           </div>
           <div>
-            <Button
-              className="header-button"
-              variant="contained"
-              onClick={() =>
-                onVote({ points: value, storyId: id, roomId: roomId })
-              }
-            >
-              Submit Vote
-            </Button>
-            <Button
-              className="header-button"
-              variant="contained"
-              onClick={() =>
-                onFinalVote({ finalPoints: value, storyId: id, roomId: roomId })
-              }
-            >
-              Submit Final Vote
-            </Button>
+            {!voteView && (
+              <Button
+                className="header-button"
+                variant="contained"
+                onClick={() =>
+                  onVote({ points: value, storyId: id, roomId: roomId })
+                }
+              >
+                Submit Vote
+              </Button>
+            )}
+            {voteView && (
+              <Button
+                className="header-button"
+                variant="contained"
+                onClick={() =>
+                  onFinalVote({
+                    finalPoints: value,
+                    storyId: id,
+                    roomId: roomId,
+                  })
+                }
+              >
+                Submit Final Vote
+              </Button>
+            )}
           </div>
         </Box>
       </Modal>
