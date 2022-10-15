@@ -10,10 +10,11 @@ export default function Rooms() {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.profile);
   const rooms = useSelector((state) => state.rooms.data);
+  console.log(rooms);
 
   useEffect(() => {
     dispatch(getOwnerRooms());
-  }, [dispatch, user]);
+  }, [dispatch]);
 
   const onRoomClick = (roomId) => {
     navigate(`/room/${roomId}`);
@@ -21,7 +22,7 @@ export default function Rooms() {
 
   const cardColors = ["#FCCEB4", "#C0FCB4", "#B4CBFC", "#F9B4FC"];
 
-  const ownedRooms = rooms.map((room, index) => {
+  const ownedRooms = rooms?.map((room, index) => {
     if (room.isRoomOwner) {
       return (
         <RoomCard
@@ -35,7 +36,7 @@ export default function Rooms() {
     }
   });
 
-  const registeredRooms = rooms.map((room, index) => {
+  const registeredRooms = rooms?.map((room, index) => {
     if (!room.isRoomOwner) {
       return (
         <RoomCard

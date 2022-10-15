@@ -61,6 +61,7 @@ const userSlice = createSlice({
   initialState: initial,
   extraReducers: (builder) => {
     builder.addCase(registerUser.fulfilled, (state, { payload }) => {
+      console.log(payload);
       state.profile = payload;
     });
     builder.addCase(loginUser.fulfilled, (state, { payload }) => {

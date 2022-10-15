@@ -27,9 +27,10 @@ export default function Register() {
   const dispatch = useDispatch();
 
   const onRegister = (user) => {
-    dispatch(registerUser(user));
-    resetState();
-    navigate("/rooms");
+    dispatch(registerUser(user)).then(() => {
+      resetState();
+      navigate("/rooms");
+    });
   };
 
   return (
