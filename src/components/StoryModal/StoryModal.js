@@ -36,7 +36,7 @@ export default function RoomModal({ modalOpen, onClose, onAddClick, roomId }) {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Room Title:
+            Stoty Title:
           </Typography>
           <div>
             <Input

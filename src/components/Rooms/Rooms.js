@@ -10,7 +10,6 @@ export default function Rooms() {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.profile);
   const rooms = useSelector((state) => state.rooms.data);
-  console.log(rooms);
 
   useEffect(() => {
     dispatch(getOwnerRooms());
@@ -31,6 +30,7 @@ export default function Rooms() {
           onRoomClick={onRoomClick}
           roomId={room.id}
           color={cardColors[index % cardColors.length]}
+          shareIcon={true}
         />
       );
     }
@@ -45,6 +45,7 @@ export default function Rooms() {
           onRoomClick={onRoomClick}
           roomId={room.id}
           color={cardColors[index % cardColors.length]}
+          shareIcon={false}
         />
       );
     }

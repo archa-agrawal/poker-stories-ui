@@ -49,7 +49,7 @@ export default function Header() {
   const registerButton = (
     <Button
       variant={"contained"}
-      color="secondary"
+      color="success"
       sx={{ my: 2, display: "block", textDecoration: "none" }}
       onClick={() => navigate("/user/register")}
     >
@@ -65,6 +65,17 @@ export default function Header() {
       onClick={() => onCreate()}
     >
       + Create room
+    </Button>
+  );
+
+  const roomsButton = (
+    <Button
+      variant="contained"
+      color="secondary"
+      sx={{ my: 2, display: "block", mx: 2 }}
+      onClick={() => navigate("/rooms")}
+    >
+      Rooms
     </Button>
   );
 
@@ -109,6 +120,7 @@ export default function Header() {
             }}
           >
             {user.email ? createRoomButton : loginButton}
+            {user.email ? roomsButton : ""}
             {user.email ? userIcon : registerButton}
           </Box>
         </Toolbar>
