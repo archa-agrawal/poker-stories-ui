@@ -46,11 +46,11 @@ export default function Register() {
         <CardContent>
           {showError && (
             <Stack sx={{ width: "100%", marginTop: "100px" }} spacing={2}>
-              <Alert severity="error">Invalid user name or password!</Alert>
+              <Alert severity="error">Invalid input!</Alert>
             </Stack>
           )}
           <Typography variant="h6" component="h2" sx={{ pb: 1 }}>
-            Sign In
+            Sign up
           </Typography>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <TextField
