@@ -5,6 +5,8 @@ import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
 import { useState } from "react";
 import "./Login.scss";
 import { useDispatch } from "react-redux";
@@ -14,6 +16,7 @@ import { loginUser } from "../../slices/user";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showError, setShowError] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -23,9 +26,13 @@ export default function Login() {
   };
 
   const onLogin = (user) => {
-    dispatch(loginUser(user)).then(() => {
-      resetState();
-      navigate("/rooms");
+    dispatch(loginUser(user)).then((data) => {
+      if (data.payload) {
+        resetState();
+        navigate("/rooms");
+      } else {
+        setShowError(true);
+      }
     });
   };
 
@@ -33,6 +40,11 @@ export default function Login() {
     <Box sx={{ width: "600px", margin: "auto", marginTop: "200px" }}>
       <Card>
         <CardContent>
+          {showError && (
+            <Stack sx={{ width: "100%", marginTop: "100px" }} spacing={2}>
+              <Alert severity="error">Invalid user name or password!</Alert>
+            </Stack>
+          )}
           <Typography variant="h6" component="h2" sx={{ pb: 1 }}>
             Sign In
           </Typography>
